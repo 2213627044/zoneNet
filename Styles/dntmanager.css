@@ -1,0 +1,58 @@
+﻿/*css document start*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style: none;
+}
+
+image {
+    border: none;
+}
+
+/*Login*/
+#LoginBar {
+    position: absolute;
+    left: 50%;
+    Top: 50%;
+    margin-top: -210px;
+    z-index: 1;
+    margin-left: -225px;
+    width: 450px;
+    Height: 420px;
+}
+
+.FormNav {
+    background: url(../images/login-center.gif) repeat-y left top;
+}
+
+    .FormNav dl {
+        background: url(../images/key.gif) no-repeat 0 0px;
+        padding: 30px 30px 30px 100px;
+    }
+
+    .FormNav dt, .FormNav dd {
+        line-height: 35px;
+        height: 40px;
+    }
+
+    .FormNav label {
+        padding-right: 15px;
+        font-size: 14px;
+        color: #666;
+        font-weight: bold;
+    }
+
+    .FormNav button {
+        width: 60px;
+        height: 26px;
+        border: 0;
+        background: url(../images/button.gif) no-repeat left top;
+        cursor: pointer;
+        margin-left: 65px;
+    }
+/*Login*/
+
