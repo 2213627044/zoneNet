@@ -222,8 +222,8 @@ public partial class statistics : System.Web.UI.Page
 
     protected void Button3_Click(object sender, EventArgs e)
     {
-        string a = Text3.Value.Replace(" ", "");
-        string b = Text4.Value.Replace(" ", "");
+        string a = Text5.Value.Replace(" ", "");
+        string b = Text6.Value.Replace(" ", "");
         DateTime dt;
         a = a == "" ? "1900-01-01" : a;
         b = b == "" ? "2999-12-31" : b;
