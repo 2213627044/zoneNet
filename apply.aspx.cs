@@ -42,7 +42,7 @@ public partial class apply : System.Web.UI.Page
         int id = pyrc.zoneNet.sqlExecuteCmd(param);
         //新增流程记录
         sql = "insert into TableHandleState(D01,D02,D03,D04,D05) values(@1,@2,@3,@4,@5)";
-        param = new string[] { sql, id.ToString(), Session["user_id"].ToString(), "19", "提交问题", DateTime.Now.ToString() };//19:默认流转代码
+        param = new string[] { sql, id.ToString(), Session["user_id"].ToString(), "0", "提交问题", DateTime.Now.ToString() };//0:默认流转代码
         pyrc.zoneNet.sqlExecuteCmd(param);
         //保存上传文件
         sql = "update [dbo].[TableUpfile] set F01=@1,F07=0 where F04=@2";

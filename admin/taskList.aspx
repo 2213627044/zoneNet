@@ -17,20 +17,20 @@
                     <asp:Repeater ID="Repeater1" runat="server">
                         <HeaderTemplate>
                             <tr class="text">
-                                <th width="100">问题类别</th>
-                                <th width="200">标题</th>
-                                <th width="100">提交时间</th>
-                                <th width="100">处理状态</th>
-                                <th width="100">操作</th>
+                                <th style="width:100px;" ">问题类别</th>
+                                <th style="width:200px;">标题</th>
+                                <th style="width:100px;">提交时间</th>
+                                <th style="width:100px;">处理状态</th>
+                                <th style="width:100px;">操作</th>
                             </tr>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <tr align="center" >
-                                <td width="100"><%#DataBinder.Eval(Container.DataItem, "Q01")%></td>
-                                <td width="200"><%#DataBinder.Eval(Container.DataItem, "B03")%></td>
-                                <td width="100"><%#string.Format("{0:g}",DataBinder.Eval(Container.DataItem, "B05"))%></td>
-                                <td width="100"><%#DataBinder.Eval(Container.DataItem, "D03").ToString()=="0"?"结案":DataBinder.Eval(Container.DataItem, "D03").ToString()==Session["user_id"].ToString()?"待办":"已办"%></td>
-                                <td width="100" valign="middle">
+                            <tr style="text-align:center;"  >
+                                <td style="width:100px;"><%#DataBinder.Eval(Container.DataItem, "Q01")%></td>
+                                <td style="width:200px;"><%#DataBinder.Eval(Container.DataItem, "B03")%></td>
+                                <td style="width:100px;"><%#string.Format("{0:g}",DataBinder.Eval(Container.DataItem, "B05"))%></td>
+                                <td style="width:100px;"><%#DataBinder.Eval(Container.DataItem, "D03").ToString()=="0"?"结案":DataBinder.Eval(Container.DataItem, "D03").ToString()==Session["user_id"].ToString()?"待办":"已办"%></td>
+                                <td style="width:100px;" valign="middle">
                                     <a href="taskHandle.aspx?id=<%#DataBinder.Eval(Container.DataItem, "B00")%>&m=<%#DataBinder.Eval(Container.DataItem, "D03").ToString()=="0"?"1":DataBinder.Eval(Container.DataItem, "D03").ToString()==Session["user_id"].ToString()?"0":"1"%>" target="_self"><%#DataBinder.Eval(Container.DataItem, "D03").ToString()=="0"?"查看":DataBinder.Eval(Container.DataItem, "D03").ToString()==Session["user_id"].ToString()?"处理":"查看"%></a>
                                 </td>
                             </tr>
@@ -38,7 +38,7 @@
                         <FooterTemplate>
                         </FooterTemplate>
                     </asp:Repeater>
-                    <tr align="center">
+                    <tr style="text-align:center;" >
                         <td>
                            
                         </td>

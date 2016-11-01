@@ -72,6 +72,16 @@
             </div>
             <div id="div1" runat="server"></div>
         </div>
+        <div>
+            <div style="width: 750px; margin-top: 60px; margin-left: auto; margin-right: auto; margin-bottom: 10px; text-align: left; font-size: 15px;">
+                <p style="text-align: center; font-size: 20px; font-family: 'Microsoft YaHei'">工作人员工作量统计</p>
+                时间段：<input type="text" placeholder="" name="startTime" value="" maxlength="100" id="Text5" runat="server" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="true" style="width: 90px; cursor: pointer" />
+                至
+                <input type="text" placeholder="" name="startTime" value="" maxlength="100" id="Text6" runat="server" onclick="SelectDate(this,'yyyy-MM-dd')" readonly="true" style="width: 90px; cursor: pointer" />
+                <asp:Button ID="Button3" runat="server" Text="查询" OnClick="Button3_Click" />
+            </div>
+            <div id="div2" runat="server"></div>
+        </div>
     </form>
 </body>
 </html>

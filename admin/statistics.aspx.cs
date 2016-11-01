@@ -19,11 +19,14 @@ public partial class statistics : System.Web.UI.Page
             Text2.Value = DateTime.Now.ToShortDateString();
             Text3.Value = DateTime.Now.AddMonths(-1).AddDays(1).ToShortDateString();
             Text4.Value = DateTime.Now.ToShortDateString();
+            Text5.Value = DateTime.Now.AddMonths(-1).AddDays(1).ToShortDateString();
+            Text6.Value = DateTime.Now.ToShortDateString();
             ShowData1(Text1.Value, Text2.Value, 1);
             ShowData1(Text1.Value, Text2.Value, 2);
             ShowData1(Text1.Value, Text2.Value, 3);
             ShowData1(Text1.Value, Text2.Value, 4);
             ShowData2(Text3.Value, Text4.Value);
+            ShowData3(Text5.Value, Text6.Value);
         }
 
     }
@@ -118,7 +121,7 @@ public partial class statistics : System.Web.UI.Page
         while (read1.Read())
         {
             tr1 = tr1 + "<th>" + read1["Q01"].ToString() + "</th>";
-            cmd2.CommandText = "select count(*) a from TableApply where B02=" + read1["Q00"].ToString()+ " and B05 between '" + beginDate + " 00:00:00' and '" + endDate + " 23:59:59'";
+            cmd2.CommandText = "select count(*) a from TableApply where B02=" + read1["Q00"].ToString() + " and B05 between '" + beginDate + " 00:00:00' and '" + endDate + " 23:59:59'";
             sqlconn2.Open();
             read2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
             while (read2.Read())
@@ -141,6 +144,62 @@ public partial class statistics : System.Web.UI.Page
         div1.InnerHtml = tb1 + tr1 + tr2 + tb2;
     }
 
+    protected void ShowData3(string beginDate, string endDate)
+    {
+        string tb1 = "<table class='gridtable'>";
+        string tb2 = "</table>";
+        string tr1 = "<tr><th></th><th>问题数量</th><th>处理次数</th>";
+        string tr2 = "<tr>";
+        string tr3 = "<tr>";
+        int a = 0;
+        int b = 0;
+        SqlConnection sqlconn1 = new SqlConnection();
+        sqlconn1.ConnectionString = ConfigurationManager.ConnectionStrings["zoneNetConn"].ConnectionString;
+        var cmd1 = new SqlCommand();
+        cmd1.Connection = sqlconn1;
+        SqlDataReader read1;
+
+        SqlConnection sqlconn2 = new SqlConnection();
+        sqlconn2.ConnectionString = ConfigurationManager.ConnectionStrings["zoneNetConn"].ConnectionString;
+        var cmd2 = new SqlCommand();
+        cmd2.Connection = sqlconn2;
+        SqlDataReader read2;
+
+        cmd1.CommandText = "select U00,U04 from TableUser where (U16=2 or U16=3) and U17=1";
+        sqlconn1.Open();
+        read1 = cmd1.ExecuteReader(CommandBehavior.CloseConnection);
+        while (read1.Read())
+        {
+            tr2 = tr2 + "<td>"+read1["U04"].ToString()+"</td>";//工作人员姓名列
+            cmd2.CommandText = "select count(DISTINCT D01) a from TableHandleState where D02=" + read1["U00"].ToString() + " and D05 between '" + beginDate + " 00:00:00' and '" + endDate + " 23:59:59'";
+            sqlconn2.Open();
+            read2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+            while (read2.Read())
+            {
+                tr2 = tr2 + "<td>" + read2["a"].ToString() + "</td>";//问题数量
+                a = a + System.Int32.Parse(read2["a"].ToString());
+            }
+            read2.Close();
+            cmd2.CommandText = "select count(*) a from TableHandleState where D02=" + read1["U00"].ToString() + " and D05 between '" + beginDate + " 00:00:00' and '" + endDate + " 23:59:59'";
+            sqlconn2.Open();
+            read2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+            while (read2.Read())
+            {
+                tr2 = tr2 + "<td>" + read2["a"].ToString() + "</td>";//处理次数
+                b = b + System.Int32.Parse(read2["a"].ToString());
+            }
+            read2.Close();
+
+            tr2 = tr2 + "</tr>";
+        }
+        read1.Close();
+        tr3 = tr3 + "<td>合计</td>";//合计
+        tr3 = tr3 + "<td>" + a + "</td>";//问题合计
+        tr3 = tr3 + "<td>" + b + "</td>";//次数合计
+        tr3 = tr3 + "</tr>";
+        div2.InnerHtml = tb1 + tr1 +tr2+ tr3+ tb2;
+    }
+
     protected void Button2_Click(object sender, EventArgs e)
     {
         string a = Text3.Value.Replace(" ", "");
@@ -159,5 +218,25 @@ public partial class statistics : System.Web.UI.Page
             Response.End();
         }
         ShowData2(a, b);
+    }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        string a = Text3.Value.Replace(" ", "");
+        string b = Text4.Value.Replace(" ", "");
+        DateTime dt;
+        a = a == "" ? "1900-01-01" : a;
+        b = b == "" ? "2999-12-31" : b;
+        if (DateTime.TryParse(a, out dt) == false)
+        {
+            Response.Write("<script>alert('日期格式有误，请重新输入！')</script>");
+            Response.End();
+        }
+        if (DateTime.TryParse(b, out dt) == false)
+        {
+            Response.Write("<script>alert('日期格式有误，请重新输入！')</script>");
+            Response.End();
+        }
+        ShowData3(a, b);
     }
 }

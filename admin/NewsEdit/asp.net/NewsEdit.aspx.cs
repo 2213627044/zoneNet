@@ -81,11 +81,4 @@ public partial class NewsEdit : System.Web.UI.Page
         Response.Write("<script>alert('保存成功!');</script>");
 
     }
-    static public object object obj)
-    {
-        if (obj == null)
-            return DBNull.Value;
-
-        return obj;
-    }
 }
